@@ -119,13 +119,20 @@ input::placeholder {
               @error('email')
                         <span class="error invalid-feedback">{{ $message }}</span>
                     @enderror
-              <small id="emailHelp" class="form-text text-muted text-right"
+              <!-- <small id="emailHelp" class="form-text text-muted text-right"
                 >Forgot your password?</small
-              >
+              > -->
             </div>
             <button type="submit" class="btn btn-outline-info btn-lg btn-block">
               Login
             </button>
+            <small class="form-text text-muted text-center mt-3" style="color: black !important; font-weight: bold"
+                >OR</small
+              >
+            <div style="text-align: center">
+                <a class="text-info mt-2" 
+                    >Sign in With Gmail</a>
+            </div>
             <!-- <button
               type="submit"
               class="btn btn-outline-primary btn-lg btn-block"
