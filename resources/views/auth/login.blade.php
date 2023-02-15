@@ -123,16 +123,10 @@ input::placeholder {
                 >Forgot your password?</small
               > -->
             </div>
-            <button type="submit" class="btn btn-outline-info btn-lg btn-block">
+            <button type="button" class="btn btn-outline-info btn-lg btn-block">
               Login
             </button>
-            <small class="form-text text-muted text-center mt-3" style="color: black !important; font-weight: bold"
-                >OR</small
-              >
-            <div style="text-align: center">
-                <a class="text-info mt-2" 
-                    >Sign in With Gmail</a>
-            </div>
+            
             <!-- <button
               type="submit"
               class="btn btn-outline-primary btn-lg btn-block"
@@ -140,6 +134,15 @@ input::placeholder {
               Register with Gmail
             </button> -->
           </form>
+
+          <small class="form-text text-muted text-center mt-3" style="color: black !important; font-weight: bold"
+                >OR</small
+              >
+            <div style="text-align: center">
+                <a href="{{route('google.login')}}" class="text-info mt-2">
+                    <button class="btn bg-danger text-white"><i class="fa-brands fa-google mx-1"></i> Sign In With Google</button>
+                </a>
+            </div>
         </section>
       </div>
     </div>

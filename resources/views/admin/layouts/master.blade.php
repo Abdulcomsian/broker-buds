@@ -4,6 +4,11 @@
 <head>
     {{-- @php $setting =\App\Models\Setting::pluck('value','name')->toArray(); @endphp --}}
     @include('admin.partials._head')
+
+    <link rel="stylesheet" href="{{asset('css/custom.css')}}">
+
+    @yield('style')
+
 </head>
 
 <body class="hold-transition sidebar-mini">
@@ -25,6 +30,7 @@
     {{-- @include('admin.partials._footer') --}}
 
     @include('admin.partials._scripts')
+    @yield('script')
 </body>
 
 </html>

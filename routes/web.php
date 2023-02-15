@@ -4,14 +4,21 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Artisan;
 
-use App\Http\Controllers\Admin\AdminController;
-use App\Http\Controllers\Admin\UsersController;
-use App\Http\Controllers\Admin\SettingController;
-use App\Http\Controllers\Admin\GeneralSettingsController;
-use App\Http\Controllers\Admin\LogController;
-use App\Http\Controllers\Admin\RoleController;
-use App\Http\Controllers\Admin\MediaUploadController;
-use App\Http\Controllers\Admin\PermissionController;
+use App\Http\Controllers\Admin\{
+    PermissionController,
+    MediaUploadController,
+    RoleController,
+    LogController,
+    GeneralSettingsController,
+    SettingController,
+    UsersController,
+    AdminController,
+};
+
+use App\Http\Controllers\{
+    GoogleController,
+    GoogleSheetController,
+};
 
 
 /*
@@ -92,3 +99,10 @@ Route::group([
     Route::post('/media-upload', [MediaUploadController::class, 'upload_media_file'])->name('admin.upload.media.file');
     Route::post('/media-upload/delete', [MediaUploadController::class, 'delete_upload_media_file'])->name('admin.upload.media.file.delete');
 });
+
+
+Route::get('google-login' , [GoogleController::class , 'google_authentication'])->name('google.login');
+Route::any('google-callback' , [GoogleController::class , 'google_callback'])->name('google.callback');
+Route::get('get-google-sheet-detail' , [GoogleSheetController::class , 'get_sheet_details'])->name('google.sheet');
+Route::get('get-gooogle-spreadsheet' , [GoogleSheetController::class , 'get_sheet_page'])->name('google.spreadsheet');
+Route::post('get-spreadsheet-data' , [GoogleSheetController::class , 'get_sheet_data'])->name('get.spreadsheet.data');
