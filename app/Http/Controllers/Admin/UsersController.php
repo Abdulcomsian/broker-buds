@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Auth;
+use App\Models\ { User , SpreadSheet , SpreadSheetUser} ;
 
 class UsersController extends Controller
 {
@@ -135,26 +135,49 @@ class UsersController extends Controller
      */
     public function store(Request $request)
     {
+        try{
         $this->validate($request, [
             'name' => 'required|max:255',
             'email' => 'required|unique:users,email',
             'password' => 'required|min:6',
         ]);
+        // dd($request->all());    
 
         $input = $request->all();
         $user = new User();
-        $user->name = $input['name'];
-        $user->email = $input['email'];
-        if ($request->active) {
-            $user->active = 1;
-        } else {
-            $user->active = 0;
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->active = $request->active == 'on' ? 1 : 0;
+        $user->password = bcrypt($request->password);
+        if($user->save())
+        {
+            if($request->spreadsheet == 'on')
+            {
+                $userId = $user->id;
+                $spreadSheet = SpreadSheet::where('spread_sheet_id' , '1OUYy0xmCqU6rgcBQEElvMchqEeeM60q8ePtfEc_jBmM')->first();
+                // dd($spreadSheet);
+                SpreadSheetUser::insert([
+                    'user_id' => $userId,
+                    'spreadsheet_id' => $spreadSheet->id
+                ]);
+            }
+            Session::flash('success_message', 'Great! User has been saved successfully!');
+            return redirect()->back();
+        }else{
+            Session::flash('error_message' , 'Something Went Wrong');
+            return redirect()->back();
         }
-        $user->password = bcrypt($input['password']);
-        $user->save();
-
-        Session::flash('success_message', 'Great! User has been saved successfully!');
+    }
+    catch(Exception $e)
+    {
+        Session::flash('error_message' , $e->getMessage());
         return redirect()->back();
+    }
+
+
+
+
+       
     }
 
     /**
@@ -175,7 +198,7 @@ class UsersController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
-    {
+    {  
         $user = $this->obj->find($id);
 
         return view('admin.users.edit', ['title' => 'Update User Details', 'user' => $user]);
@@ -190,26 +213,41 @@ class UsersController extends Controller
      */
     public function update(Request $request, $id)
     {
+
         $user = $this->obj->findOrFail($id);
         $this->validate($request, [
             'name' => 'required|max:255',
             'email' => 'required|unique:users,email,' . $id,
         ]);
-        $input = $request->all();
+        // $input = $request->all();
 
-        $user->name = $input['name'];
-        $user->email = $input['email'];
-        if ($request->active) {
-            $user->active = 1;
-        } else {
-            $user->active = 0;
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->active = $request->active == 'on' ? 1 : 0;
+        
+        if (!empty($request->password)) {
+            $user->password = bcrypt($request->password);
         }
-        if (!empty($input['password'])) {
-            $user->password = bcrypt($input['password']);
+        if($user->save())
+        {
+            $userId = $user->id;
+            $spreadSheet = SpreadSheet::where('spread_sheet_id' , '1OUYy0xmCqU6rgcBQEElvMchqEeeM60q8ePtfEc_jBmM')->first();
+            if($request->spreadsheet == 'on')
+            {
+                // dd($spreadSheet);
+                SpreadSheetUser::updateOrCreate(
+                    ['user_id' => $userId , 'spreadsheet_id' => $spreadSheet->id],
+                    ['user_id' => $userId , 'spreadsheet_id' => $spreadSheet->id]
+                ); 
+                
+            }else{
+                SpreadSheetUser::where(['user_id' => $userId , 'spreadsheet_id' => $spreadSheet->id])->delete(); 
+            }
+            Session::flash('success_message', 'Great! User has been updated successfully!');
+            return redirect()->back();
         }
-        $user->save();
 
-        Session::flash('success_message', 'Great! user successfully updated!');
+        Session::flash('success_message', 'Great! user updated updated!');
         return redirect()->back();
     }
 
@@ -273,4 +311,15 @@ class UsersController extends Controller
        Session::flash('success_message','Profile updated successfully.');
        return redirect()->back();
     }
+
+    public function add_user_in_spread_sheet(Request $request)
+    {
+        $users = $request->users;
+
+
+
+
+    }
+
+
 }

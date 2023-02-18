@@ -41,7 +41,10 @@ class GoogleController extends Controller
         if($check)
         {
             Auth::login($check);
-            return redirect()->route('google.spreadsheet');
+
+            $redirectPath = !is_null(auth()->user()->sheet->last()) ?  'google.spreadsheet' : 'admin.dashboard';
+
+            return redirect()->route($redirectPath);
         }
         
 

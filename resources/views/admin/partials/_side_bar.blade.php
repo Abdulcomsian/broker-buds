@@ -48,6 +48,7 @@
                           </p>
                       </a>
                   </li>
+                  @can('view user')
                   <li class="nav-item">
                       <a href="#" class="nav-link">
                           <i class="nav-icon fas fa-user-alt"></i>
@@ -95,6 +96,7 @@
                           </li> -->
                       </ul>
                   </li>
+                  @endcan
 
                   {{-- <li class="nav-item">
                       <a href="{{ route('setting.index') }}"

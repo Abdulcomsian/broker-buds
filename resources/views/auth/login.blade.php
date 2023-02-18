@@ -123,7 +123,7 @@ input::placeholder {
                 >Forgot your password?</small
               > -->
             </div>
-            <button type="button" class="btn btn-outline-info btn-lg btn-block">
+            <button type="submit" class="btn btn-outline-info btn-lg btn-block">
               Login
             </button>
             

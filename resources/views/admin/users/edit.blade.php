@@ -69,11 +69,26 @@
                                     <span id="password-error" class="error invalid-feedback">{{ $message }}</span>
                                 @enderror
                             </div>
-                            <div class="form-group">
-                                <label for="active">Active</label>
-                                <div>
-                                    <input type="checkbox" name="active" id="active" {{ ($user->active) ?'checked':'' }} data-bootstrap-switch
-                                        data-off-color="danger" data-on-color="success">
+                            <div class="row">
+                                <div class="col-2">
+                                    <div class="form-group">
+                                
+                                        <label for="active">Active</label>
+                                        <div>
+                                            <input type="checkbox" name="active" id="active" {{ ($user->active) ?'checked':'' }} data-bootstrap-switch
+                                                data-off-color="danger" data-on-color="success">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-2">
+                                    <div class="form-group">
+                                        <label for="active">Spread Sheet</label>
+                                        
+                                        <div>
+                                            <input type="checkbox" name="spreadsheet" id="spreadsheet" {{!is_null($user->sheet->last()) ? 'checked' : ''}} data-bootstrap-switch
+                                                data-off-color="danger" data-on-color="success">
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>

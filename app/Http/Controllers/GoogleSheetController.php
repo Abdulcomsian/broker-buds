@@ -26,7 +26,18 @@ class GoogleSheetController extends Controller
     }
 
     public function get_sheet_page()
-    {
+    {   
+            $spreadSheetId = auth()->user()->sheet->last()->spread_sheet_id;
+
+            $spreadSheetDetails = $this->get_sheet_details($spreadSheetId , 'Demo');
+        
+            $header = array_shift($spreadSheetDetails);
+
+            return view('spreadsheet.spreadsheet')->with(['header' => $header , 'rows' => $spreadSheetDetails]);
+    }
+
+    public function check_user_in_spreadsheet()
+    {   //this code helps to get the users that are added in the spread sheet
         $spreadSheetId = "1OUYy0xmCqU6rgcBQEElvMchqEeeM60q8ePtfEc_jBmM";
         $client = new Google_Client();
         $client->setApplicationName('broker-buds');
@@ -43,17 +54,9 @@ class GoogleSheetController extends Controller
             $emailAddress[] =  $permission->getEmailAddress();
         }
 
-
         if(in_array(auth()->user()->email , $emailAddress))
         {
-
-            $spreadSheetDetails = $this->get_sheet_details($spreadSheetId , 'Demo');
-        
-            $header = array_shift($spreadSheetDetails);
-
-            return view('spreadsheet.spreadsheet')->with(['header' => $header , 'rows' => $spreadSheetDetails]);
-        }else{
-            return redirect()->route('admin.dashboard');
+            //do what ever you want to do
         }
     }
 
@@ -62,6 +65,44 @@ class GoogleSheetController extends Controller
         $spreadSheetDetails = $this->get_sheet_details($spreadSheetId , 'Demo');
         $header = array_shift($spreadSheetDetails);
         return view('spreadsheet.components.table')->with(['header' => $header , 'rows' => $spreadSheetDetails]);
+    }
+
+    public function list_add_user_in_spreadsheet(Request $request)
+    {
+        try{
+            $spreadSheetId = $request->spreadSheetId;
+            $userId = $request->userId;
+            $spreadSheet = $this->add_user_in_spreadsheet($spreadSheetId , $userId);
+            if($spreadSheet)
+            {
+                return response()->json(['success' => true , 'msg' => 'User Added In Spread Sheet']);
+            }
+            else
+            {
+                return response()->json(['success' => false , 'msg' => $e->getMessage()]);    
+            }
+        }
+        catch(Exception $e)
+        {
+            return response()->json(['success' => false , 'msg' => $e->getMessage()]);
+        }
+    }
+
+    public function mail_add_user_in_spreadsheet(Request $request)
+    {
+            $spreadSheetId = $request->spreadSheetId;
+            $userId = $request->userId;
+            $spreadSheet = $this->add_user_in_spreadsheet($spreadSheetId , $userId);
+    }
+
+    public function add_user_in_spreadsheet(Request $request)
+    {
+        
+        $spreadSheet = SpreadSheetUser::insert([
+                            'spreadsheet_id' => $spreadSheetId,
+                            'user_id' => $userId,
+                        ]);
+        return $spreadSheet;
     }
 
 

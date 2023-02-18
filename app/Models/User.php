@@ -22,6 +22,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'user_google_id',
     ];
 
     /**
@@ -42,4 +43,11 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function sheet()
+    {
+        return $this->belongsToMany(SpreadSheet::class , 'spread_sheet_users' , 'user_id' , 'spreadsheet_id');
+    }
+
+
 }

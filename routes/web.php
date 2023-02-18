@@ -62,7 +62,7 @@ Route::group([
     Route::post('delete-selected-users',  [UsersController::class, 'DeleteSelectedUsers'])->name('delete-selected-users');
     Route::get('edit-profile/{id}',  [UsersController::class, 'show'])->name('edit-profile');
     Route::get('/profile-setting', [UsersController::class, 'profileSetting'])->name('user.profile');
-    Route::post('/profile-setting', [UsersController::class, 'updateProfile'])->name('user.profile');
+    // Route::post('/profile-setting', [UsersController::class, 'updateProfile'])->name('user.profile');
 
     //Roles Controller
     Route::resource('roles', RoleController::class);

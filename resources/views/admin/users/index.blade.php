@@ -28,6 +28,10 @@
                     <div class="card">
                         <div class="card-header">
                             <div class="form-group float-right">
+                                {{-- <button class="btn btn-success" id="add-spreadsheet-btn" disabled>
+                                    <i class="fa fw fa-plus"></i>
+                                    Add Spreadsheet
+                                </button> --}}
                                 @can('user-create')
                                     <a href="{{ route('users.create') }}" class="btn btn-primary">
                                         <i class="fa fw fa-plus"></i>
@@ -51,7 +55,7 @@
                                         <thead>
                                             <tr>
                                                 <th>
-                                                    <div class="checkbox checkbox-success m-0">
+                                                    <div class="checkbox checkbox-success m-0" style="line-height: 8px">
                                                         <input type="checkbox">
                                                         <label for="checkbox3"></label>
                                                     </div>
@@ -207,5 +211,28 @@
                 // $.LoadingOverlay("hide");
             });
         }
+
+        // $(document).on('change' , "input[name='users[]']" , function(e){
+        //     let element = e.target;
+        //     if(element.checked == true)
+        //     {
+        //         document.getElementById('add-spreadsheet-btn').removeAttribute('disabled')
+        //     }else{
+
+        //        let userCheckboxes =  document.getElementsByName('users[]');
+        //        let testFlag = false;
+        //        for(let i=0; i<userCheckboxes.length; i++)
+        //        {
+        //         if(userCheckboxes[i].checked == true)
+        //         {
+        //             testFlag = true;
+        //             break;
+        //         }
+        //        }
+
+        //        if(testFlag == false) document.getElementById('add-spreadsheet-btn').setAttribute('disabled' , true);
+
+        //     }
+        // })
     </script>
 @endsection
