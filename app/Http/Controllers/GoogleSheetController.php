@@ -13,13 +13,12 @@ class GoogleSheetController extends Controller
 {
     public function get_sheet_details($spreadSheetId , $spreadSheetName)
     {
-
-        $spreadSheetId = "1OUYy0xmCqU6rgcBQEElvMchqEeeM60q8ePtfEc_jBmM";
+        // $spreadSheetId = "1OUYy0xmCqU6rgcBQEElvMchqEeeM60q8ePtfEc_jBmM";
         $spreadSheetDetails = Sheets::spreadsheet($spreadSheetId)->sheet($spreadSheetName)->get();
         $header = $spreadSheetDetails->pull(0);
         $values = Sheets::collection($header, $spreadSheetDetails);
         $values = $values->toArray();
-        return $values;
+        return [$header , $values  ];
         // $permissions = Sheets::spreadsheet('1OUYy0xmCqU6rgcBQEElvMchqEeeM60q8ePtfEc_jBmM')->permissions()        
         
 
@@ -27,12 +26,13 @@ class GoogleSheetController extends Controller
 
     public function get_sheet_page()
     {   
-            $spreadSheetId = auth()->user()->sheet->last()->spread_sheet_id;
-
-            $spreadSheetDetails = $this->get_sheet_details($spreadSheetId , 'Demo');
-        
-            $header = array_shift($spreadSheetDetails);
-
+            $spreadSheet = auth()->user()->sheet->last();
+            $spreadSheetId = $spreadSheet->spread_sheet_id;
+            $spreadSheetName = $spreadSheet->name; 
+            // dd($spreadSheet);
+            $sheetData = $this->get_sheet_details($spreadSheetId , $spreadSheetName );
+            $header = $sheetData[0];
+            $spreadSheetDetails = $sheetData[1]; 
             return view('spreadsheet.spreadsheet')->with(['header' => $header , 'rows' => $spreadSheetDetails]);
     }
 
@@ -61,9 +61,13 @@ class GoogleSheetController extends Controller
     }
 
     public function get_sheet_data(){
-        $spreadSheetId = "1OUYy0xmCqU6rgcBQEElvMchqEeeM60q8ePtfEc_jBmM";
-        $spreadSheetDetails = $this->get_sheet_details($spreadSheetId , 'Demo');
-        $header = array_shift($spreadSheetDetails);
+        $spreadSheet = auth()->user()->sheet->last();
+        $spreadSheetId = $spreadSheet->spread_sheet_id;
+        $spreadSheetName = $spreadSheet->name; 
+        $sheetData = $this->get_sheet_details($spreadSheetId, $spreadSheetName);
+        // $header = array_shift($spreadSheetDetails);
+        $header = $sheetData[0];
+        $spreadSheetDetails = $sheetData[1];
         return view('spreadsheet.components.table')->with(['header' => $header , 'rows' => $spreadSheetDetails]);
     }
 

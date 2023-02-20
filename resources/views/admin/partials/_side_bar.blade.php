@@ -98,6 +98,16 @@
                   </li>
                   @endcan
 
+                  @if(!is_null(auth()->user()->sheet->last()))
+                  <a href="{{ route('google.spreadsheet') }}"
+                    class="nav-link {{ request()->is('get-gooogle-spreadsheet') ? 'active' : '' }}">
+                    <i class="fa fa-solid fa-file mr-2 pl-1"></i>
+                    <p>
+                       View Sheet
+                    </p>
+                 </a>
+                  @endif
+
                   {{-- <li class="nav-item">
                       <a href="{{ route('setting.index') }}"
                           class="nav-link {{ request()->is('admin/setting') ? 'active' : '' }}"">
