@@ -158,6 +158,17 @@
                         </p>
                     </a>
                 </li> -->
+                  @if (auth()->user()->hasRole('User'))
+                  <li class="nav-item">
+                      <a href="{{ route('google.spreadsheet') }}"
+                         class="nav-link">
+                          <i class="nav-icon fas fa-sheet-plastic"></i>
+                          <p>
+                              Google Sheet
+                          </p>
+                      </a>
+                  </li>
+                  @endif
                   <li class="nav-item">
                       <a href="{{ route('logout') }}"
                           onclick="event.preventDefault();document.getElementById('logout-form').submit();"
