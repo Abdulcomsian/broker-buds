@@ -14,6 +14,7 @@ class AdminController extends Controller
      */
     public function index()
     {
+        // dd( in_array('Admin' , auth()->user()->roles->pluck('name')->toArray()));
         return view('admin.dashboard.index');
     }
 

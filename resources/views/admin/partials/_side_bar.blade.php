@@ -98,7 +98,8 @@
                   </li>
                   @endcan
 
-                  @if(!is_null(auth()->user()->sheet->last()))
+              
+                  @if(!is_null(auth()->user()->sheet->last()) ||  in_array('Admin' , auth()->user()->roles->pluck('name')->toArray()))
                   <a href="{{ route('google.spreadsheet') }}"
                     class="nav-link {{ request()->is('get-gooogle-spreadsheet') ? 'active' : '' }}">
                     <i class="fa fa-solid fa-file mr-2 pl-1"></i>
