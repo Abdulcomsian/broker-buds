@@ -4342,8 +4342,8 @@ input[type="button"].btn-block {
 
 .nav-pills .nav-link.active,
 .nav-pills .show > .nav-link {
-  color: #fff;
-  background-color: #007bff;
+  color: #000;
+  background-color: transparent;
 }
 
 .nav-fill > .nav-link,
@@ -10698,6 +10698,8 @@ body,
 .layout-navbar-fixed.layout-fixed .wrapper .control-sidebar {
   top: calc(3.5rem + 1px);
 }
+
+
 
 .layout-navbar-fixed.layout-fixed .wrapper .main-header.text-sm ~ .control-sidebar {
   top: calc(2.93725rem + 1px);
@@ -52251,4 +52253,5 @@ a.text-muted:hover {
 .dark-mode .border-dark {
   border-color: #4b545c !important;
 }
+
 /*# sourceMappingURL=adminlte.css.map */

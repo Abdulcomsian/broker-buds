@@ -1,21 +1,30 @@
-.spreadsheet-table{
+.spreadsheet-table {
     overflow-y: scroll;
+}
+.test {
+    width: 500px !important;
 }
 
 table {
-    width: 100%;
+    width: 2100px !important;
+    overflow: auto;
     table-layout: fixed;
     border-collapse: collapse;
-  }
-  
-  thead tr {
+}
+
+thead tr {
     position: sticky;
     top: 0;
     background-color: #fff;
-  }
-  
-  tbody tr:first-child {
-    position: sticky;
-    top: 42px; /* height of thead row */
+}
+
+tbody tr:nth-child(odd) {
+    /* position: sticky; */
+    /* top: 42px; height of thead row */
     background-color: #fff;
-  }
+}
+tbody tr:nth-child(even) {
+    /* position: sticky; */
+    /* top: 42px; height of thead row */
+    background-color: #f4fcff;
+}
