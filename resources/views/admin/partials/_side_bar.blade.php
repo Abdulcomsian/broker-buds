@@ -1,5 +1,5 @@
   <!-- Main Sidebar Container -->
-  <aside class="main-sidebar sidebar-dark-primary elevation-4">
+  <aside class="main-sidebar sidebar-dark-primary elevation-4" style="display: none">
       <!-- Brand Logo -->
       <a href="index3.html" class="brand-link">
           <img src="{{ asset('images/brandLogo.png') }}" alt="AdminLTE Logo"
@@ -49,7 +49,7 @@
                       </a>
                   </li>
                   @can('view user')
-                  <li class="nav-item">
+                  <li class="nav-item" style="margin-right: 26px">
                       <a href="#" class="nav-link">
                           <i class="nav-icon fas fa-user-alt"></i>
                           <p>

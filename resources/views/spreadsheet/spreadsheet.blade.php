@@ -3,10 +3,12 @@
 
 @endsection
 @section('content')
-<div class="container">
-    <div class="row p-2">
-        <div class="col-12">
-            <div class="card spreadsheet-table" style="height: 400px;">
+<div class="container-fluid">
+    <div class="row" style="overflow-x: auto; max-height: 560px">
+        <div class="col-12" style="padding-left: 0">
+            <!-- <div class="card spreadsheet-table" > -->
+            <div class="card " >
+
                 @include('spreadsheet.components.table')
             </div>
         </div>

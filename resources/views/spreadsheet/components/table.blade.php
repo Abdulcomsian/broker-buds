@@ -1,16 +1,21 @@
     <table class="table">
         <thead>
             <tr class="sticky">
+            @php $i=1; @endphp
                 @foreach($header as $item)
-                    <th scope="col">{{$item}}</th>
+                    <th @if($i == 10 || $i == 11)  class="test" @endif scope="col">{{$item}}</th>
+                    @php $i++; @endphp
                 @endforeach
             </tr>
         </thead>
         <tbody>
+            
             @foreach($rows as $row)
-            <tr @if($loop->iteration == 1) class="sticky" @endif>
+            <tr >
+                
                 @foreach($row as $item)
-                    <td>{{$item}}</td>
+                    <td >{{$item}}</td>
+                   
                 @endforeach
             </tr>
             @endforeach

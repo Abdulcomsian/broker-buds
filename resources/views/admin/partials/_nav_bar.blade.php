@@ -1,22 +1,76 @@
   <!-- Navbar -->
-  <nav class="main-header navbar navbar-expand navbar-white navbar-light">
-    <!-- Left navbar links -->
-    <ul class="navbar-nav">
+  <nav class="main-header navbar navbar-expand navbar-white navbar-light" style="margin-left: 0 ">
+    <a href="index3.html" class="brand-link">
+      <img src="{{ asset('images/brandLogo.png') }}" alt="AdminLTE Logo" class="brand-image img-circle" style="opacity: .8">
+      <span class="brand-text font-weight-light">BROKER BUDS</span>
+    </a>
+
+    <ul class="nav nav-pills nav-sidebar " data-widget="treeview" role="menu" data-accordion="false">
+                  <!-- Add icons to the links using the .nav-icon class
+               with font-awesome or any other icon font library -->
       <li class="nav-item">
-        <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+        <a href="{{ route('admin.dashboard') }}" class="nav-link {{ request()->is('admin/dashboard') ? 'active' : '' }}">
+        <i class="nav-icon fas fa-tachometer-alt"></i>
+        <p>Dashboard</p>
+        </a>
       </li>
-      <li class="nav-item d-none d-sm-inline-block">
-        <a href="{{ route('admin.dashboard') }}" class="nav-link">Dashboard</a>
+      
+
+      <li class="nav-item" style="margin-right: 25px">
+        <a href="#" class="nav-link">
+          <i class="nav-icon fas fa-user-alt"></i>
+            <p>Manage Users
+              <i class="right fas fa-angle-left" style="right:0rem "></i>
+            </p>
+        </a>
+          <ul class="nav nav-treeview" style="position: absolute; background: white; box-shadow: 0 0 16px 1px lightgrey;">
+            <li class="nav-item">
+              <a href="{{ route('users.index') }}" class="nav-link {{ request()->is('admin/users') ? 'active' : '' }}">
+                  <i class="nav-icon fas fa-user-alt"></i>
+                  <p>Users</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="{{ route('users.create') }}" class="nav-link {{ request()->is('admin/users/create') ? 'active' : '' }}">
+                <i class="nav-icon fas fa-user-alt"></i>
+                <p>Add User</p>
+              </a>
+            </li>
+            <!-- <li class="nav-item">
+              <a href="{{ route('user.profile') }}"
+              class="nav-link {{ request()->is('admin/profile-setting') ? 'active' : '' }}">
+              <i class="nav-icon fas fa-user-alt"></i>
+              <p>
+              Update Profile
+              </p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="{{ route('roles.index') }}"
+              class="nav-link {{ request()->is('admin/roles') ? 'active' : '' }}"">
+              <i class="         nav-icon fas fa-user-tag"></i>
+              <p>
+              Roles
+              </p>
+              </a>
+            </li> -->
+          </ul>
       </li>
-      <!-- <li class="nav-item d-none d-sm-inline-block">
-        <a href="#" class="nav-link">Contact</a>
-      </li> -->
+              
+      @if(!is_null(auth()->user()->sheet->last()) ||  in_array('Admin' , auth()->user()->roles->pluck('name')->toArray()))
+        <a href="{{ route('google.spreadsheet') }}" class="nav-link {{ request()->is('get-gooogle-spreadsheet') ? 'active' : '' }}">
+          <i class="fa fa-solid fa-file mr-2 pl-1"></i>
+            <p>View Sheet</p>
+        </a>
+      @endif
+      <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+        @csrf
+      </form>
     </ul>
 
-    <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
       <!-- Navbar Search -->
-      <li class="nav-item">
+      <!-- <li class="nav-item">
         <a class="nav-link" data-widget="navbar-search" href="#" role="button">
           <i class="fas fa-search"></i>
         </a>
@@ -35,7 +89,7 @@
             </div>
           </form>
         </div>
-      </li>
+      </li> -->
 
       <!-- Messages Dropdown Menu -->
       <!-- <li class="nav-item dropdown">
@@ -127,5 +181,33 @@
         </a>
       </li> -->
     </ul>
+    <div class="form-inline">
+      <div class="input-group" data-widget="sidebar-search">
+        <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
+        <div class="input-group-append">
+          <button class="btn btn-sidebar">
+            <i class="fas fa-search fa-fw"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="user-panel  d-flex">
+              <div class="image">
+                  <img src="{{ asset('backend/dist/img/user2-160x160.jpg') }}" class="img-circle elevation-2"
+                      alt="User Image">
+              </div>
+              <div class="info">
+                  <a href="#" class="d-block">{{Auth::user()->name}}</a>
+              </div>
+    </div>
+    <div class="nav-item">
+      <a href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();" class="nav-link">
+      <i class="nav-icon fas fa-sign-out-alt"></i>
+      <span>Logout</span>
+      </a>
+    </div>
   </nav>
+
+    <!-- Right navbar links -->
+  
   <!-- /.navbar -->
