@@ -1,22 +1,36 @@
-    <table class="table">
+    <table class="table spreadsheet-table">
         <thead>
             <tr class="sticky">
-            @php $i=1; @endphp
-                @foreach($header as $item)
-                    <th @if($i == 10 || $i == 11)  class="test" @endif scope="col">{{$item}}</th>
-                    @php $i++; @endphp
+                @php $detailHeader = ['Analysis' , 'Recommended Buys']; @endphp
+                @foreach($header as $index => $item)
+                   @php if(empty($item) || $item == "")  continue; @endphp
+                   <th @if(in_array($item , $detailHeader)) class="wide-width-header" @endif >{{$item}}</th>
+                    
                 @endforeach
             </tr>
         </thead>
         <tbody>
-            
-            @foreach($rows as $row)
+            @foreach($rows as $key => $row)
+            @php $row = array_values($row)  @endphp
+            {{-- {{dd($rows)}} --}}
             <tr >
+                <td>{{$row[0]}}</td>
+                <td >{{$row[1]}}</td>
+                <td >{{$row[2]}}</td>
+                <td class="spread-sheet-link"><a href="{{$row[4]}}" target="_blank" >{{$row[3]}}</a></td>
+                <td >{{$row[5]}}</td>
+                <td >{{$row[6]}}</td>
+                <td >{{$row[7]}}</td>
+                <td >{{$row[8]}}</td>
+                <td >{{$row[9]}}</td>
+                <td >{{$row[10]}}</td>
+                <td >{{$row[11]}}</td>
+                <td >{{$row[12]}}</td>
+                {{-- @foreach($row as $item)
                 
-                @foreach($row as $item)
                     <td >{{$item}}</td>
                    
-                @endforeach
+                @endforeach --}}
             </tr>
             @endforeach
         </tbody>

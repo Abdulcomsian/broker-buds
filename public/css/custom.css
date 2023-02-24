@@ -28,3 +28,13 @@ tbody tr:nth-child(even) {
     /* top: 42px; height of thead row */
     background-color: #f4fcff;
 }
+.spread-sheet-link{
+    cursor: pointer;
+}
+
+.spreadsheet-table th{
+    min-width: 200px!important;
+}
+.wide-width-header{
+    width: 600px;
+}

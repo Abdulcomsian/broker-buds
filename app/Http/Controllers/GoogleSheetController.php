@@ -18,6 +18,7 @@ class GoogleSheetController extends Controller
         $header = $spreadSheetDetails->pull(0);
         $values = Sheets::collection($header, $spreadSheetDetails);
         $values = $values->toArray();
+        // dd($values);
         return [$header , $values  ];
         // $permissions = Sheets::spreadsheet('1OUYy0xmCqU6rgcBQEElvMchqEeeM60q8ePtfEc_jBmM')->permissions()        
         
